@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cutie — Handmade Clothing</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Arial,Helvetica,sans-serif;background:#fffafc;color:#382c35}
+a{text-decoration:none;color:inherit}
+.topbar{background:#382c35;color:white;text-align:center;padding:9px;font-size:13px;letter-spacing:.5px}
+nav{height:76px;padding:0 7%;display:flex;align-items:center;justify-content:space-between;background:#fff;position:sticky;top:0;z-index:10;border-bottom:1px solid #f3e4eb}
+.logo{font-size:31px;font-weight:900;color:#e86d9d;letter-spacing:-1px}
+.navlinks{display:flex;gap:30px;font-size:14px;font-weight:700}
+.navlinks a:hover{color:#e86d9d}
+.cart{border:1px solid #ead6df;padding:10px 15px;border-radius:22px;font-weight:700;cursor:pointer;background:white}
+.hero{min-height:620px;padding:80px 7%;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;background:linear-gradient(135deg,#fff1f6,#f9edf8)}
+.hero h1{font-size:clamp(55px,7vw,90px);line-height:.92;letter-spacing:-4px;margin:15px 0;color:#332731}
+.hero h1 span{color:#e86d9d}
+.hero p{font-size:18px;line-height:1.7;max-width:540px;color:#6f5b68}
+.btn{display:inline-block;margin-top:28px;padding:15px 27px;border-radius:28px;background:#e86d9d;color:#fff;font-weight:800;border:none;cursor:pointer}
+.btn.alt{background:white;color:#e86d9d;border:1px solid #edc9d8;margin-left:8px}
+.hero-art{height:440px;border-radius:30px;background:linear-gradient(145deg,#f2cad9,#f8e6ed);display:flex;align-items:center;justify-content:center;font-size:150px;box-shadow:0 20px 50px #d9b9c833}
+section{padding:80px 7%}
+.section-title{text-align:center;font-size:38px;margin-bottom:12px}
+.subtitle{text-align:center;color:#816d79;margin-bottom:38px}
+.filters{text-align:center;margin-bottom:35px}
+.filter{padding:9px 16px;border:1px solid #e7d4dd;background:#fff;border-radius:20px;margin:4px;cursor:pointer}
+.filter.active,.filter:hover{background:#e86d9d;color:white;border-color:#e86d9d}
+.products{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.product{background:#fff;border-radius:20px;overflow:hidden;border:1px solid #f1e2e8;transition:.2s}
+.product:hover{transform:translateY(-5px);box-shadow:0 15px 35px #d4b9c526}
+.pic{height:280px;display:flex;align-items:center;justify-content:center;font-size:80px;background:#f7e9ef}
+.product:nth-child(2) .pic{background:#f2eafa}.product:nth-child(3) .pic{background:#edf5f3}.product:nth-child(4) .pic{background:#f8eee3}
+.info{padding:18px}.info h3{font-size:17px;margin-bottom:7px}.price{font-weight:800;color:#e86d9d}.small{font-size:13px;color:#897581;margin-top:5px}
+.add{width:100%;padding:11px;border-radius:20px;border:0;background:#382c35;color:white;font-weight:700;margin-top:14px;cursor:pointer}
+.story{background:#fff0f5;display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center}
+.story-box{background:white;border-radius:25px;padding:35px;line-height:1.8;color:#6e5a67}
+.news{text-align:center;background:#382c35;color:white}
+.news p{color:#dccbd4;margin:10px 0 25px}
+.input{padding:14px 18px;border-radius:25px;border:0;width:min(350px,75%);outline:none}
+footer{padding:35px 7%;display:flex;justify-content:space-between;color:#806c77;font-size:13px}
+#toast{position:fixed;right:20px;bottom:20px;background:#382c35;color:white;padding:14px 20px;border-radius:25px;display:none;z-index:20}
+@media(max-width:850px){.hero,.story{grid-template-columns:1fr}.products{grid-template-columns:repeat(2,1fr)}.hero-art{height:300px}.navlinks{display:none}}
+@media(max-width:500px){.products{grid-template-columns:1fr}footer{flex-direction:column;gap:10px}.hero{padding-top:50px}.hero h1{font-size:58px}}
+</style>
+</head>
+<body>
+<div class="topbar">HANDMADE WITH LOVE ♡ FREE SHIPPING ON ORDERS $75+</div>
+<nav>
+  <a class="logo" href="#">Cutie.</a>
+  <div class="navlinks"><a href="#shop">Shop</a><a href="#story">Our Story</a><a href="#custom">Custom Orders</a></div>
+  <button class="cart" onclick="showCart()">Bag (<span id="count">0</span>)</button>
+</nav>
+
+<header class="hero">
+  <div>
+    <div style="font-weight:800;color:#e86d9d;letter-spacing:2px">HANDMADE CLOTHING</div>
+    <h1>Made for<br><span>cuties.</span></h1>
+    <p>Unique handmade pieces created with care. Find clothes that feel personal, playful, and completely you.</p>
+    <a class="btn" href="#shop">Shop the collection</a>
+    <a class="btn alt" href="#story">Our story</a>
+  </div>
+  <div class="hero-art">🎀</div>
+</header>
+
+<section id="shop">
+  <h2 class="section-title">The Cutie Collection</h2>
+  <p class="subtitle">One-of-a-kind handmade pieces & small-batch favorites.</p>
+  <div class="filters">
+    <button class="filter active" onclick="filterProducts('all',this)">All</button>
+    <button class="filter" onclick="filterProducts('tops',this)">Tops</button>
+    <button class="filter" onclick="filterProducts('bottoms',this)">Bottoms</button>
+    <button class="filter" onclick="filterProducts('dresses',this)">Dresses</button>
+    <button class="filter" onclick="filterProducts('sets',this)">Sets</button>
+  </div>
+  <div class="products" id="products">
+    <article class="product" data-cat="tops"><div class="pic">👚</div><div class="info"><h3>Sweetheart Top</h3><div class="price">$38</div><div class="small">Handmade • Limited</div><button class="add" onclick="addToBag('Sweetheart Top')">Add to bag</button></div></article>
+    <article class="product" data-cat="dresses"><div class="pic">👗</div><div class="info"><h3>Rosie Mini Dress</h3><div class="price">$68</div><div class="small">Handmade • Limited</div><button class="add" onclick="addToBag('Rosie Mini Dress')">Add to bag</button></div></article>
+    <article class="product" data-cat="bottoms"><div class="pic">🩷</div><div class="info"><h3>Bow Skirt</h3><div class="price">$46</div><div class="small">Handmade • Limited</div><button class="add" onclick="addToBag('Bow Skirt')">Add to bag</button></div></article>
+    <article class="product" data-cat="sets"><div class="pic">🎀</div><div class="info"><h3>Coquette Set</h3><div class="price">$82</div><div class="small">Handmade • Limited</div><button class="add" onclick="addToBag('Coquette Set')">Add to bag</button></div></article>
+  </div>
+</section>
+
+<section id="story" class="story">
+  <div>
+    <div style="font-weight:800;color:#e86d9d;letter-spacing:2px">ABOUT CUTIE</div>
+    <h2 style="font-size:44px;margin:12px 0 20px">Small brand.<br>Big heart.</h2>
+    <p style="line-height:1.8;color:#6f5b68">Cutie started with a love for creating clothes that don't feel like everyone else's. Every piece is handmade with attention to the little details.</p>
+  </div>
+  <div class="story-box">♡ <strong>Made by hand</strong><br>Each piece gets the time and attention it deserves.<br><br>♡ <strong>Small batches</strong><br>We keep collections limited so your piece feels special.<br><br>♡ <strong>Made with love</strong><br>From our sewing table to your closet.</div>
+</section>
+
+<section id="custom">
+  <h2 class="section-title">Want something custom?</h2>
+  <p class="subtitle">Have a dream outfit in mind? Let's make it happen.</p>
+  <div style="text-align:center"><button class="btn" onclick="showMessage()">Ask about a custom piece ♡</button></div>
+</section>
+
+<section class="news">
+  <h2>Join the Cutie Club 🎀</h2>
+  <p>Get first access to new drops and handmade releases.</p>
+  <input class="input" placeholder="Your email address"><button class="btn" style="margin-left:6px" onclick="showMessage()">Join</button>
+</section>
+
+<footer><strong>Cutie.</strong><span>© 2026 Cutie Handmade Clothing • Instagram • TikTok</span></footer>
+<div id="toast"></div>
+
+<script>
+let bag=0;
+function addToBag(name){bag++;document.getElementById('count').textContent=bag;toast(name+' added to your bag ♡')}
+function showCart(){toast(bag?`Your bag has ${bag} item${bag===1?'':'s'} ♡`:'Your bag is empty ♡')}
+function showMessage(){toast('Thanks, cutie! 💗 We’ll be in touch.')}
+function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.style.display='block';clearTimeout(window.timer);window.timer=setTimeout(()=>t.style.display='none',2600)}
+function filterProducts(cat,btn){
+ document.querySelectorAll('.filter').forEach(x=>x.classList.remove('active'));btn.classList.add('active');
+ document.querySelectorAll('.product').forEach(p=>p.style.display=(cat==='all'||p.dataset.cat===cat)?'block':'none');
+}
+</script>
+</body>
+</html>
